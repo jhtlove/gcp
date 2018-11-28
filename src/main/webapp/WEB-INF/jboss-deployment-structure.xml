@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+	<deployment>
+	    <dependencies>
+	    	<module name="org.dom4j"/>
+	    	
+	    	<module name="io.undertow.websocket"/>
+	    	<module name="org.jboss.xnio"/>
+			<module name="org.springframework">
+				<imports>
+					<include path="META-INF**"/>
+					<include path="org**"/>
+					<include path="**"/>
+				</imports>
+			</module>
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>
