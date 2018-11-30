@@ -3,15 +3,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>科研项目统计</title>
+    <title>科研单位信息管理</title>
     <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="js/themes/icon.css">
     <script src="js/jquery.min.js" type="text/javascript"></script>
     <script src="js/jquery.easyui.min.js" type="text/javascript"></script>
     <script src="js/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
-    <script src="js/FileSaver.js" type="text/javascript"></script>
-    <script src="js/jquery.table2excel.js" type="text/javascript"></script>
-    
     <style>
         html, body {
             height: 100%;
@@ -22,264 +19,187 @@
 </head>
 <body>
 <div id="container" style="height:100%;width: 100%;padding:0;">
-    <div id="find_btn">
-         <div style="display:inline-block;margin-left:10px;margin-top:10px;">
+    <div style="max-width:900px;margin:0 auto;padding-top: 10px;">
+        <div style="font-family: 'Times New Roman',Georgia,Serif,'Microsoft YaHei',sans-serif;font-size:12px;">
+            <label style="margin:0">单位名称:</label> <input id="dwmc" class="easyui-textbox" type="text"
+                                                         style="height:30px;width:150px;"/>
+            <label style="margin-left:10px;">单位编码:</label> <input id="dwbm" class="easyui-textbox" type="text"
+                                                                  style="height:30px;width:150px;"/>
+            <label style="margin-left:10px;">可用标志:</label>
+            <span style="height:30px;width:70px;position: relative; background-color: #fff;vertical-align: middle;display: inline-block;overflow: hidden;white-space: nowrap;margin: 0;padding: 0;border-radius: 5px 5px 5px 5px;">
+                <select id="zt" name="zt" style="width:100%;height:30px;line-height:30px;border:1px solid #95B8E7;border-radius: 5px;outline:none;font-family: 'Times New Roman',Georgia,Serif,'Microsoft YaHei',sans-serif;font-size: 12px">
+                    <option value="all">全部</option>
+                    <option value="1">可用</option>
+                    <option value="0">禁用</option>
+                </select>
+            </span>
+
+            <div style="display: inline-block;margin-left:10px;">
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search"
-                   style="width:70px;height:30px;border:1px solid #95B8E7;" onclick="find()">查询</a>
+                   style="width:70px;height:30px;border:1px solid #95B8E7;" onclick="find()">查找</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add"
+                   style="width:70px;height:30px;border:1px solid #95B8E7;" onclick="newUser()">添加</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit"
+                   style="width:70px;height:30px;border:1px solid #95B8E7;" onclick="editUser()">修改</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+                   style="width:70px;height:30px;border:1px solid #95B8E7;" onclick="deleteUser()">删除</a>
+            </div>
         </div>
     </div>
-    
-    <%-- 表格 --%>
-    <div style="margin-top:10px;width:100%;position:absolute;top:50px;bottom:0;left:0;" buttons="#find_btn">
-        <table id="t_tjbb_xm" title="GCP项目信息统计" class="easyui-datagrid"
-               style="width:100%;height:100%;"  
-               data-options="pagination:false,rownumbers:true,fitColumns:true,singleSelect:true,toolbar:'#export_xm'">
+    <!--<div style="margin-top:15px;margin-bottom:5px;">-->
+    <!--<hr style=" height:2px;border:none;border-top:1px solid #95B8E7;"/>-->
+    <!--</div>-->
+    <!--表格-->
+    <div style="margin-top:10px;width:100%;position:absolute;top:40px;bottom:0;left:0;">
+        <table id="t_dwxx" title="科研单位信息" class="easyui-datagrid"
+               style="width:100%;height:100%;"
+               data-options="pagination:false,rownumbers:true,fitColumns:true,singleSelect:true">
         </table>
     </div>
-    <div id="export_xm" style="padding:2px 5px;">
-        <a id="a_export" download="GCP项目信息统计.xls" href="" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="exportXm()">导出</a>
+
+    <div id="new_dlg" class="easyui-dialog" style="width:400px" closed="true" buttons="#new_dlg-buttons" data-options="draggable:true,modal:true">
+        <form id="new_fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px">
+                <input name="new_dwmc" class="easyui-textbox" label="单位名称:" style="width:100%"/>
+            </div>
+        </form>
     </div>
 
-    <div id="names" class="easyui-dialog" title="受试者姓名" 
-     data-options="modal:true,closed:true,resizable:true,iconCls:'icon-man'"
-     style="width:500px;height:500px;padding:10px;">
+    <div id="new_dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveNew()"
+           style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+           onclick="closeDlg('new_dlg')" style="width:90px">取消</a>
+    </div>
 
-         <table id="t_xm" class="easyui-datagrid"
-               style="width:100%;height:100%;"  
-               data-options="rownumbers:true,fitColumns:true,singleSelect:true">
-        </table>
+    <div id="edit_dlg" class="easyui-dialog" style="width:400px" closed="true" buttons="#edit_dlg-buttons" data-options="draggable:true,modal:true">
+        <form id="edit_fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:10px">
+                <input name="dwmc" class="easyui-textbox" label="单位名称:" style="width:100%"/>
+            </div>
+            <div>
+                <!--<input name="zt" class="easyui-textbox" required="true" label="可用标志:" style="width:100%">-->
+                <label style="display:inline-block;width:79px;text-align: left;height: 24px;line-height: 24px">可用标志:</label>
+                <span style="height:30px;width:201px;position: relative; background-color: #fff;vertical-align: middle;display: inline-block;overflow: hidden;white-space: nowrap;margin: 0;padding: 0;border-radius: 5px 5px 5px 5px;">
+                    <select id="edit_zt" name="zt" style="width: 201px; margin: 0; padding:0 4px;height: 24px; line-height: 24px;border:1px solid #95B8E7;border-radius: 5px;outline:none;font-family: Arial;font-size: 12px">
+                        <option value="1">可用</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </span>
+            </div>
+        </form>
+    </div>
 
-     </div>
+    <div id="edit_dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveEdit()"
+           style="width:90px">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+           onclick="closeDlg('edit_dlg')" style="width:90px">取消</a>
+    </div>
 
 </div>
 
 <script type="text/javascript">
-
-    $(function(){
-        find();
-    });
+    var type;//操作类型,new:添加 edit:修改
     var param = {};
+    $(function () {
+        $("#dwmc").textbox('textbox').bind('click',function(){
+            this.value = '';
+        });
+        $("#dwbm").textbox('textbox').bind('click',function(){
+            this.value = '';
+        });
+        $("#dwmc").textbox("textbox").bind('keyup',function (event) {
+            if (event.which == 13) {
+                find();
+            }
+        });
+        $("#dwbm").textbox("textbox").bind('keyup',function (event) {
+            if (event.which == 13) {
+                find();
+            }
+        });
+    });
 
-     $("#t_xm").datagrid({
-        // loadFilter: pagerFilter,
+    $("#t_dwxx").datagrid({
         columns:[[
             {
-                field:'xm',
-                title:'姓名',
-                width:200
-            }]]
-     });
-
-
-  
-// 分页数据的操作  
-    function pagerFilter(data) {  
-        data.total = data.rows.length;
-
-        var dg = $(this);  
-        var opts = dg.datagrid('options');  
-        var pager = dg.datagrid('getPager');  
-        pager.pagination({  
-            onSelectPage: function (pageNum, pageSize) {  
-                opts.pageNumber = pageNum;  
-                opts.pageSize = pageSize;  
-                pager.pagination('refresh', {  
-                    pageNumber: pageNum,  
-                    pageSize: pageSize  
-                });  
-                dg.datagrid('loadData', data);  
-            }  
-        });  
-        if (!data.originalRows) {  
-            data.originalRows = (data.rows);  
-        }  
-        var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);  
-        var end = start + parseInt(opts.pageSize);  
-        data.rows = (data.originalRows.slice(start, end));  
-        return data;  
-    }  
-
-
-
-// {"rows":[{"rzls":"22","syfq":"13","cdzy":"麻醉专业","xmmc":"盐酸帕洛诺司琼注射液","xmbm":"100001"},
-    $("#t_tjbb_xm").datagrid({
-        remoteSort: false,
-        columns:[[
-            {
-                field:'xmmc',
-                title:'项目名称',
-                width:200,
-                sortable:true
+                field:'dwmc',
+                title:'单位名称',
+                width:150
             },
             {
-                field:'xmbm',
-                title:'项目编码',
-                width:200,
-                hidden: true
-            },
-            {
-                field:'syfq',
-                title:'试验分期',
+                field:'dwbm',
+                title:'单位编码',
                 width:100
             },
             {
-                field:'cdzy',
-                title:'承担专业',
-                width:200,
-                sortable:true
-            },
-            {
-                field:'rzls',
-                title:'入组例数',
+                field:'zt',
+                title:'可用标志',
                 width:100,
-                sortable:true,
-                sorter:function(a,b){  
-                    a = parseInt(a);  
-                    b = parseInt(b); 
-                    return a-b;  
-			    }  
-            },            
-            {
-                field:'sszxm',
-                width:100,
-                title:"受试者姓名",
-                formatter: function(value,row,index){
-                    var theRow = JSON.stringify(row).replace(/"/g,"'");
-                    return '<a style="color:blue;text-decoration: none" onclick="findNames(' + theRow + ')">受试者姓名</a>';
+                formatter:function (value,row,index) {
+                    if(value === "1"){
+                        return "可用";
+                    }else{
+                        return "禁用";
+                    }
                 }
-            },
+            }
         ]]
     });
 
 
-    function base64 (s) { return window.btoa(unescape(encodeURIComponent(s))) }
-    
-    // 导出数据
-    function exportXm() {
-        var data = $("#t_tjbb_xm").datagrid("getRows");
-        genAllNames(data);
-        // genExpContent(data);
-
-     
-
-    }
-
-    function genExpContent(data){
-        var str = '<tr><td>项目名称\t</td><td>试验分期\t</td><td>承担专业\t</td><td>入组例数\t</td><td>受试者姓名\t</td>';
-        var items={'xmmc':'','syfq':'','cdzy':'','rzls':'','sszxm':''};
-        for(var i=0;i<data.length;i++){
-            str += "<tr>";
-            for(let item in items){
-                str += "<td>" + data[i][item]  +"\t" + "</td>";
-            }
-            str += "</tr>";
-        }
-      var worksheet = '费用表报';
-      var uri = 'data:application/vnd.ms-excel;base64,';
-      var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>'+ worksheet + '</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>'+ str +'</table></body></html>';
-      $("#a_export").attr('href',uri + base64(template));
-    }
-
-    //输出base64编码
-    function base64 (s) {
-        // unescape对中文转码了
-         return window.btoa(unescape(encodeURIComponent(s))); 
-    }
-
-
-    function genSSZXM(str,data,i){
-        data[i].sszxm = str;
-    }
-
-    function genAllNames(data){
-         // 先把所有姓名查出来，再导出
-        
-        for(var i=0;i<data.length;i++){
-            var xmbm = data[i].xmbm;
-            getNames(xmbm,i,data,genSSZXM); // 在回调中形成
-        }
-    }
-
-    function getNames(xmbm,i,data,callBack){
-            param.a01 = xmbm;
-            $.ajax({
-                type: "GET",
-                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                dataType: "json",
-                url: "gcprzlsdetail/query.do",
-                data: param, //规定要发送到服务器的数据
-                success: function (data) {
-                        if(data.rows == "0"){
-                            $.messager.alert('提示', "没有查询到受试者姓名", "info");
-                        }else if (data && data.rows) {
-                            // $('#t_xm').datagrid
-                            var arr = data.rows;
-                            var nameStr = '';
-                            for(var k=0; k<arr.length; k++){
-                                if(k === arr.length -1){
-                                    nameStr += arr[k][xm];
-                                }else{
-                                    nameStr += arr[k][xm] + ",";
-                                }
-                            }
-                            callBack(nameStr,data,i);
-                        } else {
-                            $.messager.alert('Error', "返回受试者姓名数据格式有误！", "error");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                            //XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象
-                            $.messager.alert('提示', "查询受试者姓名数据失败！", "error");
-                        }
-                    });
-                
-    }
-
-    // 姓名
-    function findNames(row) {
-        var xmmc = row.xmmc;
-        $("#names").attr("title",xmmc);
-        param.a01 = row.xmbm;
+    function findAll() {
+        var data = {
+            a01: "",
+            a02: "",
+            a03: "all"
+        };
         $.ajax({
-            type: "GET",
+            type: "POST",
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             dataType: "json",
-            url: "gcprzlsdetail/query.do",
-            data: param, //规定要发送到服务器的数据
+            url: "company/query.do",
+            data: data, //规定要发送到服务器的数据
             success: function (data) {
                 if(data.rows == "0"){
-                    $.messager.alert('提示', "没有查询到符合条件的记录", "info");
+
                 }else if (data && data.rows) {
-                    // $('#t_xm').datagrid
-                    $('#names').window('open').window('center');
-                    $('#t_xm').datagrid('loadData', data);//Load local data, the old rows will be removed.
-                    
+                    $('#t_dwxx').datagrid('loadData', data);//Load local data, the old rows will be removed.
                 } else {
-                    $.messager.alert('Error', "返回数据格式有误！", "error");
+
                 }
             },
             error: function (xhr, status, error) {
                 //XMLHttpRequest 对象、错误信息、（可选）捕获的异常对象
-                $.messager.alert('提示', "查询数据失败！", "error");
+
             }
-        });
+        })
 
     }
-    // 项目
+
+    //查询
     function find() {
-        param.a01 = $("#startDay").val();
-        param.a02 = $("#endDay").val();
+        var dwmc = ($("#dwmc").val()).trim();
+        var dwbm = ($("#dwbm").val()).trim();
+        var zt = ($("#zt").val()).trim();
+
+        var data = {
+            a01: dwmc,
+            a02: dwbm,
+            a03: zt
+        };
         $.ajax({
-            type: "GET",
+            type: "POST",
             contentType: "application/x-www-form-urlencoded; charset=UTF-8",
             dataType: "json",
-            url: "gcprzls/query.do",
-            data: param, //规定要发送到服务器的数据
+            url: "company/query.do",
+            data: data, //规定要发送到服务器的数据
             success: function (data) {
                 if(data.rows == "0"){
                     $.messager.alert('提示', "没有查询到符合条件的记录", "info");
                 }else if (data && data.rows) {
-                    $('#t_tjbb_xm').datagrid('loadData', data);//Load local data, the old rows will be removed.
+                    $('#t_dwxx').datagrid('loadData', data);//Load local data, the old rows will be removed.
                 } else {
                     $.messager.alert('Error', "返回数据格式有误！", "error");
                 }
@@ -292,6 +212,122 @@
 
     }
 
+    function newUser() {
+        $('#new_dlg').dialog('open').dialog('center').dialog('setTitle', '添加');
+        $('#new_fm').form('clear');
+        type = "new";
+        //点保存saveUser()的之后才会从fm的form提交到数据库
+    }
+
+    //修改
+    function editUser() {
+        var row = $('#t_dwxx').datagrid('getSelected');//Return the first selected row record or null.
+        if (row) {
+            type = "edit";
+            param.a02 = row.dwbm;//修改的时候，保存原来的部门编码
+            $('#edit_dlg').dialog('open').dialog('center').dialog('setTitle', '修改');
+            $('#edit_fm').form('load', row);//对话框中的form加载选择row的内容
+        }
+    }
+
+    function saveNew() {
+        var param = {};
+        param.a01 = ($("input[name='new_dwmc']").val()).trim();
+        if(!param.a01) return;
+        $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            url: "company/add.do",
+            data: param,
+            success: function (data) {
+                if (data.state) {
+                    $('#new_dlg').dialog('close');
+                    findAll();
+                } else {
+                    //成功返回数据，但是返回false ?
+                    $.messager.alert({
+                        title: '提示',
+                        msg: "添加失败！"
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                // $('#new_dlg').dialog('close');
+                $.messager.alert({
+                    title: '提示',
+                    msg: "请求失败：" + status
+                });
+            }
+        });
+    }
+
+    function saveEdit() {
+        param.a01 = ($("input[name='dwmc']").val()).trim();
+        param.a03 = $("#edit_zt").val();
+        if(param.a01 == ""){
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            dataType: "json",
+            url: "company/update.do",
+            data: param,
+            success: function (result) {
+                if (result.state) {
+                    $('#edit_dlg').dialog('close');
+                    findAll();
+                } else {
+                    //成功返回数据，但是返回false ?
+                    $.messager.alert({
+                        title: '提示',
+                        msg: "修改失败！"
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                // $('#edit_dlg').dialog('close');
+                $.messager.alert({
+                    title: '提示',
+                    msg: "请求失败：" + status
+                });
+            }
+        })
+    }
+
+
+
+    function closeDlg(id) {
+        $('#' + id).dialog('close');
+    }
+
+    function deleteUser() {
+        var row = $('#t_dwxx').datagrid('getSelected');
+        if (row) {
+            var dwbm = row.dwbm;
+            var dwmc = row.dwmc;
+            $.messager.confirm('提示', "是否删除该单位？", function (r) {
+                if (r) {
+                    //传递选中行数据
+                    $.post('company/delete.do', {a01: dwbm}, function (result) {
+                        if (result.state) {
+                            $.messager.alert({
+                                title: '提示',
+                                msg: "删除成功！"
+                            });
+                            findAll();   // reload the user data
+                        } else {
+                            $.messager.alert({    // show error message
+                                title: '提示',
+                                msg: "删除失败：" + result.errorMsg
+                            });
+                        }
+                    }, 'json');
+                }
+            });
+        }
+    }
 
 </script>
 </body>

@@ -24,7 +24,7 @@
         <div style="max-width:600px;margin:0 auto;padding-top:10px;padding-bottom:10px;">
             <div style="font-family: 'Times New Roman',Georgia,Serif,'Microsoft YaHei',sans-serif;font-size:12px;">
                 <label style="margin:0">项目名称:</label> <input id="xmmc" class="easyui-textbox" type="text"
-                                                             style="height:30px;width:110px;">
+                                                             style="height:30px;width:110px;"/>
                 <!--<label style="margin-left:10px;">项目编码:</label> <input id="xmbm" class="easyui-textbox" type="text"-->
                 <!--style="height:30px;width:150px;">-->
                 <label style="margin-left:10px;">项目状态:</label>
@@ -67,9 +67,9 @@
             <table style="width:100%">
                 <tr style="display:inline-block;">
                     <!--readonly="readonly"-->
-                    <td style="width:150px;"><input id="xq_xmbm" name="xq_xmbm" class="easyui-textbox"  label="项目编码:" style="width:100%" labelPosition="top" readonly="readonly"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="cfdah" name="cfdah" class="easyui-textbox"  label="CFDA批件号:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="ywmc" name="ywmc" class="easyui-textbox" label="药物名称:" style="width:100%" labelPosition="top"></td>
+                    <td style="width:150px;"><input id="xq_xmbm" name="xq_xmbm" class="easyui-textbox"  label="项目编码:" style="width:100%" labelPosition="top" readonly="readonly"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="cfdah" name="cfdah" class="easyui-textbox"  label="CFDA批件号:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="ywmc" name="ywmc" class="easyui-textbox" label="药物名称:" style="width:100%" labelPosition="top"/></td>
                 </tr>
 
                 <tr style="display:inline-block;">
@@ -120,27 +120,27 @@
                 </tr>
 
                 <tr style="display:inline-block;">
-                    <td  style="width:150px;"><input id="sbz" name="sbz" class="easyui-textbox" label="申办者:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="sbzlxdh" name="sbzlxdh" class="easyui-textbox"   label="申办者联系方式:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="cro" name="cro" class="easyui-textbox"   label="CRO:" style="width:100%" labelPosition="top"></td>
+                    <td  style="width:150px;"><input id="sbz" name="sbz" class="easyui-textbox" label="申办者:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="sbzlxdh" name="sbzlxdh" class="easyui-textbox"   label="申办者联系方式:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="cro" name="cro" class="easyui-textbox"   label="CRO:" style="width:100%" labelPosition="top"/></td>
                 </tr>
 
                 <tr style="display:inline-block;">
-                    <td  style="width:150px;"><input id="crolxdh" name="crolxdh" class="easyui-textbox"  label="CRO联系方式:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="zzdw" name="zzdw" class="easyui-textbox"   label="组长单位:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="zzdwyjy" name="zzdwyjy" class="easyui-textbox"   label="组长单位主要研究者:" style="width:100%" labelPosition="top"></td>
+                    <td  style="width:150px;"><input id="crolxdh" name="crolxdh" class="easyui-textbox"  label="CRO联系方式:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="zzdw" name="zzdw" class="easyui-textbox"   label="组长单位:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="zzdwyjy" name="zzdwyjy" class="easyui-textbox"   label="组长单位主要研究者:" style="width:100%" labelPosition="top"/></td>
                 </tr>
 
                 <tr style="display:inline-block;">
-                    <td  style="width:150px;"><input id="bzxcdjy" name="bzxcdjy" class="easyui-textbox"   label="本中心承担专业:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="bzxcdjyyjy" name="bzxcdjyyjy" class="easyui-textbox"   label="本中心承担专业研究者:" style="width:99%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="jhls" name="jhls" class="easyui-textbox"   label="计划完成总例数:" style="width:100%" labelPosition="top"></td>
+                    <td  style="width:150px;"><input id="bzxcdjy" name="bzxcdjy" class="easyui-textbox"   label="本中心承担专业:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="bzxcdjyyjy" name="bzxcdjyyjy" class="easyui-textbox"   label="本中心承担专业研究者:" style="width:99%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="jhls" name="jhls" class="easyui-textbox"   label="计划完成总例数:" style="width:100%" labelPosition="top"/></td>
                 </tr>
 
                 <tr style="display:inline-block;">
-                    <td  style="width:150px;"><input id="yyls" name="yyls" class="easyui-textbox"   label="本中心计划完成例数:" style="width:100%" labelPosition="top"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="zgks" name="zgksmc" class="easyui-textbox"   label="主管科室:" style="width:100%" labelPosition="top" readonly="readonly"></td>
-                    <td  style="width:150px;padding-left:5px"><input id="zgys" name="zgysxm" class="easyui-textbox"   label="主管医生:" style="width:100%" labelPosition="top" readonly="readonly"></td>
+                    <td  style="width:150px;"><input id="yyls" name="yyls" class="easyui-textbox"   label="本中心计划完成例数:" style="width:100%" labelPosition="top"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="zgks" name="zgksmc" class="easyui-textbox"   label="主管科室:" style="width:100%" labelPosition="top" readonly="readonly"/></td>
+                    <td  style="width:150px;padding-left:5px"><input id="zgys" name="zgysxm" class="easyui-textbox"   label="主管医生:" style="width:100%" labelPosition="top" readonly="readonly"/></td>
                 </tr>
 
             </table>
@@ -182,7 +182,7 @@
             </span>
         </div>
         <div style="margin-bottom:10px">
-            <input name="new_xmmc" class="easyui-textbox" label="项目名称:" style="width:100%">
+            <input name="new_xmmc" class="easyui-textbox" label="项目名称:" style="width:100%"/>
         </div>
         <div style="margin-bottom:10px">
             <!--<input name="new_xmlx" class="easyui-textbox" required="true" label="项目类型:" style="width:100%">-->
@@ -209,7 +209,7 @@
 
         <div style="margin-bottom:10px">
             <!--<input name="yxrq" class="easyui-textbox" required="true" label="立项日期:" style="width:100%">-->
-            <input name="new_yxrq" class="easyui-datebox" label="立项日期:" labelPosition="left" style="width:100%;">
+            <input name="new_yxrq" class="easyui-datebox" label="立项日期:" labelPosition="left" style="width:100%;"/>
         </div>
 
     </form>
@@ -225,7 +225,7 @@
 <div id="edit_dlg" class="easyui-dialog" style="width:400px" closed="true" buttons="#edit_dlg-buttons" data-options="draggable:true,modal:true">
     <form id="edit_fm" method="post" novalidate style="margin:0;padding:20px 50px">
         <div style="margin-bottom:10px">
-            <input name="xmmc" class="easyui-textbox" label="项目名称:" style="width:100%">
+            <input name="xmmc" class="easyui-textbox" label="项目名称:" style="width:100%"/>
         </div>
         <div style="margin-bottom:10px">
             <!--<input name="kydwmc" class="easyui-textbox" required="true" label="科研单位:" style="width:100%">-->
@@ -269,7 +269,7 @@
         <!--</div>-->
         <div style="margin-bottom:10px">
             <!--<input name="yxrq" class="easyui-textbox" required="true" label="立项日期:" style="width:100%">-->
-            <input name="yxrq" class="easyui-datebox" label="立项日期:" labelPosition="left" style="width:100%;">
+            <input name="yxrq" class="easyui-datebox" label="立项日期:" labelPosition="left" style="width:100%;"/>
         </div>
 
     </form>
@@ -294,10 +294,10 @@
 <div id="newjd_dlg" class="easyui-dialog" style="width:400px" closed="true" buttons="#newjd_dlg-buttons" data-options="draggable:true,modal:true">
     <form id="newjd_fm" method="post" novalidate style="margin:0;padding:20px 50px">
         <div style="margin-bottom:10px">
-            <input id="jd_xmbm" name="jd_xmbm" class="easyui-textbox" label="项目编码:" style="width:100%" readonly="readonly">
+            <input id="jd_xmbm" name="jd_xmbm" class="easyui-textbox" label="项目编码:" style="width:100%" readonly="readonly"/>
         </div>
         <div style="margin-bottom:10px">
-            <input name="jdmc" class="easyui-textbox" label="阶段名称:" style="width:100%">
+            <input name="jdmc" class="easyui-textbox" label="阶段名称:" style="width:100%"/>
         </div>
         <div style="margin-bottom:10px">
             <!--<input name="kydwmc" class="easyui-textbox" required="true" label="科研单位:" style="width:100%">-->
@@ -328,13 +328,13 @@
 <div id="editjd_dlg" class="easyui-dialog" style="width:400px" closed="true" buttons="#editjd_dlg-buttons" data-options="draggable:true,modal:true">
     <form id="editjd_fm" method="post" novalidate style="margin:0;padding:20px 50px">
         <div style="margin-bottom:10px">
-            <input id="editjd_xmbm" name="xmbm" class="easyui-textbox" label="项目编码:" style="width:100%" readonly="readonly">
+            <input id="editjd_xmbm" name="xmbm" class="easyui-textbox" label="项目编码:" style="width:100%" readonly="readonly"/>
         </div>
         <div style="margin-bottom:10px">
-            <input id="edit_xh" name="xh" class="easyui-textbox" label="序号:" style="width:100%" readonly="readonly">
+            <input id="edit_xh" name="xh" class="easyui-textbox" label="序号:" style="width:100%" readonly="readonly"/>
         </div>
         <div style="margin-bottom:10px">
-            <input id="edit_jdmc" name="jdmc" class="easyui-textbox" label="阶段名称:" style="width:100%">
+            <input id="edit_jdmc" name="jdmc" class="easyui-textbox" label="阶段名称:" style="width:100%"/>
         </div>
         <div style="margin-bottom:10px">
             <!--<input name="kydwmc" class="easyui-textbox" required="true" label="科研单位:" style="width:100%">-->

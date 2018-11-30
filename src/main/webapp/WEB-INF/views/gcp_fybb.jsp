@@ -22,10 +22,10 @@
 <div id="container" style="height:100%;width: 100%;padding:0;">
     <div class="easyui-panel" style="width:100%;">
         <div style="margin-bottom:20px;margin-left:20px;display:inline-block" >
-            <input id="startDay" data-options="formatter:myformatter,parser:myparser" class="easyui-datebox" label="开始日期:" labelPosition="top" style="width:100%;">
+            <input id="startDay" data-options="formatter:myformatter,parser:myparser" class="easyui-datebox" label="开始日期:" labelPosition="top" style="width:100%;"/>
         </div>
         <div style="margin-bottom:20px;margin-left:20px;display:inline-block">
-            <input id="endDay" data-options="formatter:myformatter,parser:myparser" class="easyui-datebox" label="结束日期:" labelPosition="top" style="width:100%;">
+            <input id="endDay" data-options="formatter:myformatter,parser:myparser" class="easyui-datebox" label="结束日期:" labelPosition="top" style="width:100%;"/>
         </div>
          <div style="display:inline-block;margin-left:10px;">
                 <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search"
@@ -40,7 +40,8 @@
         </table>
     </div>
     <div id="export_fy" style="padding:2px 5px;">
-        <a id="a_export" download="GCP检查费用统计.xls" href="" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="exportFy()">导出</a>
+    <%-- download="GCP检查费用统计.xls" --%>
+        <a id="a_export"  href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="exportFy()">导出</a>
     </div>
 
 </div>
@@ -55,7 +56,7 @@
             {
                 field:'xmmc',
                 title:'项目名称',
-                width:300,
+                width:400,
                 sortable:true
             },
             {
@@ -84,7 +85,7 @@
             {
                 field:'yzje',
                 title:'金额',
-                width:300,
+                width:100,
                 sortable:true,
                 sorter:function(a,b){  
                     a = parseFloat(a);  
@@ -121,8 +122,8 @@
       var worksheet = '费用表报';
       var uri = 'data:application/vnd.ms-excel;base64,';
       var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>'+ worksheet + '</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>'+ str +'</table></body></html>';
-    //   window.location.href = uri + base64(template); //a href="#" 时表示一个空链接，点击时链接停留在当前页面，相当于刷新当前页面
-       $("#a_export").attr('href',uri + base64(template));
+      window.location.href = uri + base64(template); //a href="#" 时表示一个空链接，点击时链接停留在当前页面，相当于刷新当前页面
+    //    $("#a_export").attr('href',uri + base64(template));
     }
     //输出base64编码
     function base64 (s) { return window.btoa(unescape(encodeURIComponent(s))) }
